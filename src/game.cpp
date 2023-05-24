@@ -27,7 +27,8 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 		window.clear();
 		player.setPlayerTexture();
 		player.drawTo(window);
-		player.movePlayer(player_speed, player_rotation);
+		player.movePlayer(player_speed);
+		player.rotatePlayer(player_rotation);
 		window.display();
 	}
 }

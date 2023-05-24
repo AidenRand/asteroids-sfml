@@ -26,7 +26,7 @@ void Player::drawTo(sf::RenderWindow& window)
 	window.draw(player);
 }
 
-void Player::movePlayer(float& player_speed, float player_rotation)
+void Player::movePlayer(float& player_speed)
 {
 	float player_angle = player.getRotation() * (M_PI / 180);
 
@@ -38,6 +38,7 @@ void Player::movePlayer(float& player_speed, float player_rotation)
 			velocity.x += player_speed;
 			velocity.y += player_speed;
 		}
+
 		velocity = 0.09f * velocity;
 		direction.x += velocity.x * cos(player_angle);
 		direction.y += velocity.y * sin(player_angle);
@@ -55,6 +56,11 @@ void Player::movePlayer(float& player_speed, float player_rotation)
 		}
 	}
 
+	player.move(direction);
+}
+
+void Player::rotatePlayer(float player_rotation)
+{
 	// Rotate player in direction of button pressed
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
@@ -64,6 +70,4 @@ void Player::movePlayer(float& player_speed, float player_rotation)
 	{
 		player.rotate(player_rotation);
 	}
-
-	player.move(direction);
 }
