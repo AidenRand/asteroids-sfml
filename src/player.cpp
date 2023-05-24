@@ -1,9 +1,9 @@
 #include "player.hpp"
 
-Player::Player(float& player_x, float& player_y)
+Player::Player(float& player_x, float& player_y, int player_width, int player_height)
 {
 	player.setPosition(sf::Vector2f(player_x, player_y));
-	player.setOrigin(player.getGlobalBounds().width / 2, player.getGlobalBounds().height / 2);
+	player.setOrigin(player_width / 2, player_height / 2);
 }
 
 void Player::setPlayerTexture()
@@ -24,4 +24,46 @@ void Player::setPlayerTexture()
 void Player::drawTo(sf::RenderWindow& window)
 {
 	window.draw(player);
+}
+
+void Player::movePlayer(float& player_speed, float player_rotation)
+{
+	float player_angle = player.getRotation() * (M_PI / 180);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		// Accelerate player
+		while (velocity.y <= 1.0f)
+		{
+			velocity.x += player_speed;
+			velocity.y += player_speed;
+		}
+		velocity = 0.09f * velocity;
+		direction.x += velocity.x * cos(player_angle);
+		direction.y += velocity.y * sin(player_angle);
+	}
+	else
+	{
+		// Decelerate player
+		if (velocity.y <= 0.3f)
+		{
+			velocity.y = 0;
+		}
+		if (velocity.x <= 0.3f)
+		{
+			velocity.x = 0;
+		}
+	}
+
+	// Rotate player in direction of button pressed
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		player.rotate(-player_rotation);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		player.rotate(player_rotation);
+	}
+
+	player.move(direction);
 }
