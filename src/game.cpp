@@ -10,12 +10,17 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 	int player_height = 32;
 	float player_x = screen_width / 2;
 	float player_y = screen_height / 2;
-	float player_speed = 0.3f;
+	float player_speed = 1.0f;
 	float player_rotation = 5;
 	Player player(player_x, player_y, player_width, player_height);
 
+	float dt;
+	sf::Clock clock;
+
 	while (window.isOpen())
 	{
+		dt = clock.restart().asSeconds();
+
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -27,8 +32,9 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 		window.clear();
 		player.setPlayerTexture();
 		player.drawTo(window);
-		player.movePlayer(player_speed);
+		player.movePlayer(player_speed, dt);
 		player.rotatePlayer(player_rotation);
+		player.screenWrapping(screen_width, screen_height);
 		window.display();
 	}
 }
