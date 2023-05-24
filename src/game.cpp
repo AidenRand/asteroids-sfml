@@ -1,10 +1,15 @@
 #include "game.hpp"
+#include "player.hpp"
 #include <SFML/Graphics.hpp>
 
 void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 {
 
-	std::cout << screen_width << screen_height;
+	// Player variables
+	float player_x = screen_width / 2;
+	float player_y = screen_height / 2;
+	int player_speed = 5;
+	Player player(player_x, player_y, player_speed);
 
 	while (window.isOpen())
 	{
