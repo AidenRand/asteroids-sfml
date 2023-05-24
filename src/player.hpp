@@ -4,7 +4,9 @@
 class Player
 {
 public:
-	Player(float player_x, float player_y, float player_speed);
+	Player(float& player_x, float& player_y);
+	void setPlayerTexture();
+	void drawTo(sf::RenderWindow& window);
 
 private:
 	sf::Texture moving_player_texture;

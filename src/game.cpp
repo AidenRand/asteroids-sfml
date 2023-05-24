@@ -8,8 +8,8 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 	// Player variables
 	float player_x = screen_width / 2;
 	float player_y = screen_height / 2;
-	int player_speed = 5;
-	Player player(player_x, player_y, player_speed);
+	// int player_speed = 5;
+	Player player(player_x, player_y);
 
 	while (window.isOpen())
 	{
@@ -22,6 +22,8 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 			}
 		}
 		window.clear();
+		player.setPlayerTexture();
+		player.drawTo(window);
 		window.display();
 	}
 }
