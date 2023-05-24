@@ -23,7 +23,7 @@ void Player::setPlayerTexture()
 	player.setTexture(player_texture);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		texture_number += 10;
+		texture_number += 5;
 		if (texture_number % 7 == 0)
 		{
 			player.setTexture(moving_player_texture);
