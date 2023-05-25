@@ -32,6 +32,7 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 	long unsigned int max_asteroids = 5;
 	int asteroid_width = 128;
 	int asteroid_height = 128;
+	float asteroid_scale = 0.5;
 	bool asteroid_dead = false;
 
 	float dt;
@@ -77,7 +78,7 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 			asteroid_vector[i].drawTo(window);
 			asteroid_vector[i].moveAsteroids(dt);
 			asteroid_vector[i].screenWrapping(screen_width, screen_height);
-			asteroid_vector[i].collision(bullet_dead, asteroid_dead, bullet_vector);
+			asteroid_vector[i].collision(asteroid_dead, bullet_dead, asteroid_scale, bullet_vector);
 
 			// If bullet_dead is true despawn the bullet
 			if (bullet_dead)
@@ -87,6 +88,7 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 			}
 		}
 
+		// If reload timer is zero, fire bullet
 		if (reload_timer == 0)
 		{
 			if (bullet_firing)
