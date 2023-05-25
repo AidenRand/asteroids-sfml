@@ -24,6 +24,7 @@ void Asteroids::chooseTexture()
 {
 	random_texture = rand() % 3;
 
+	// Randomly choose asteroid texture
 	if (random_texture == 0)
 	{
 		asteroid.setTexture(asteroid_texture_1);

@@ -1,5 +1,6 @@
 #include "game.hpp"
 #include "asteroids.hpp"
+#include "bullet.hpp"
 #include "player.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -15,6 +16,12 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 	float player_speed = 1.0f;
 	float player_rotation = 5;
 	Player player(player_x, player_y, player_width, player_height);
+
+	// Bullet variables
+	float bullet_width = 3;
+	float bullet_height = 3;
+	sf::Color white = sf::Color(200, 200, 200);
+	Bullet bullet(bullet_width, bullet_height, white);
 
 	// Asteroid variables
 	std::vector<Asteroids> asteroid_vector;
