@@ -23,13 +23,13 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 	float bullet_speed = 10;
 	bool bullet_dead = false;
 	bool bullet_firing = false;
+	int reload_timer = 0;
 	sf::Color white = sf::Color(200, 200, 200);
 	std::vector<Bullet> bullet_vector;
 
 	// Asteroid variables
 	std::vector<Asteroids> asteroid_vector;
 	long unsigned int max_asteroids = 5;
-	float asteroid_speed = 1;
 	int asteroid_width = 128;
 	int asteroid_height = 128;
 	bool asteroid_dead = false;
@@ -62,7 +62,7 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 		// Create asteroids
 		Asteroids asteroid(asteroid_width, asteroid_height);
 		asteroid.spawnAsteroids(screen_width, screen_height, asteroid_width, asteroid_height);
-		asteroid.chooseAsteroidDirection(asteroid_speed);
+		asteroid.chooseAsteroidDirection();
 		asteroid.chooseTexture();
 
 		// Push asteroids to asteroid vector
@@ -75,7 +75,7 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 		for (long unsigned int i = 0; i != asteroid_vector.size(); i++)
 		{
 			asteroid_vector[i].drawTo(window);
-			asteroid_vector[i].moveAsteroids();
+			asteroid_vector[i].moveAsteroids(dt);
 			asteroid_vector[i].screenWrapping(screen_width, screen_height);
 			asteroid_vector[i].collision(bullet_dead, asteroid_dead, bullet_vector);
 
@@ -87,12 +87,20 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 			}
 		}
 
-		if (bullet_firing)
+		if (reload_timer == 0)
 		{
-			bullet.setPos(player);
-			bullet.fireBullet(bullet_speed, player);
-			bullet_vector.push_back(bullet);
-			bullet_firing = false;
+			if (bullet_firing)
+			{
+				bullet.setPos(player);
+				bullet.fireBullet(bullet_speed, player);
+				bullet_vector.push_back(bullet);
+				reload_timer += 10;
+				bullet_firing = false;
+			}
+		}
+		else
+		{
+			reload_timer--;
 		}
 
 		// Draw and move bullets
