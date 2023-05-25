@@ -31,3 +31,19 @@ void Bullet::moveBullet()
 {
 	bullet.move(direction);
 }
+
+void Bullet::despawnBullet(bool& bullet_dead, int screen_width, int screen_height)
+{
+	// If bullet goes beyond screen set bullet dead to true
+	if (bullet.getPosition().x > screen_width
+		|| bullet.getPosition().x < 0
+		|| bullet.getPosition().y > screen_height
+		|| bullet.getPosition().y < 0)
+	{
+		bullet_dead = true;
+	}
+	else
+	{
+		bullet_dead = false;
+	}
+}

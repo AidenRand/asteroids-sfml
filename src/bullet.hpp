@@ -12,6 +12,7 @@ public:
 	void drawTo(sf::RenderWindow& window);
 	void fireBullet(float& bullet_speed, Player& player);
 	void moveBullet();
+	void despawnBullet(bool& bullet_dead, int screen_width, int screen_height);
 
 private:
 	sf::RectangleShape bullet;

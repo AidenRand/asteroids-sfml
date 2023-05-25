@@ -21,9 +21,10 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 	float bullet_width = 3;
 	float bullet_height = 3;
 	float bullet_speed = 10;
+	bool bullet_dead = false;
+	bool bullet_firing = false;
 	sf::Color white = sf::Color(200, 200, 200);
 	std::vector<Bullet> bullet_vector;
-	Bullet bullet(bullet_width, bullet_height, white);
 
 	// Asteroid variables
 	std::vector<Asteroids> asteroid_vector;
@@ -49,11 +50,13 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 			{
-				bullet_vector.push_back(bullet);
+				bullet_firing = true;
 			}
 		}
 
 		window.clear();
+
+		Bullet bullet(bullet_width, bullet_height, white);
 
 		// Create asteroids
 		Asteroids asteroid(asteroid_width, asteroid_height);
@@ -75,14 +78,30 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 			asteroid_vector[i].screenWrapping(screen_width, screen_height);
 		}
 
+		if (bullet_firing)
+		{
+			bullet.setPos(player);
+			bullet.fireBullet(bullet_speed, player);
+			bullet_vector.push_back(bullet);
+			bullet_firing = false;
+		}
+
 		// Draw and move bullets
-		bullet.setPos(player);
-		bullet.fireBullet(bullet_speed, player);
-		for (long unsigned int i = 0; i != bullet_vector.size(); i++)
+		for (long unsigned int i = 0; i < bullet_vector.size(); i++)
 		{
 			bullet_vector[i].drawTo(window);
 			bullet_vector[i].moveBullet();
+			bullet_vector[i].despawnBullet(bullet_dead, screen_width, screen_height);
+
+			// If bullet_dead is true despawn the bullet
+			if (bullet_dead)
+			{
+				bullet_vector.erase(bullet_vector.begin() + i);
+				bullet_dead = false;
+			}
 		}
+
+		std::cout << bullet_vector.size() << "\n";
 
 		player.setPlayerTexture();
 		player.drawTo(window);

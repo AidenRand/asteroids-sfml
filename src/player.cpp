@@ -19,7 +19,7 @@ void Player::setPlayerTexture()
 		std::cout << "ERROR: moving player texture could not be loaded" << std::endl;
 	}
 
-	// Make playe texture flicker when W is pressed
+	// Make player texture flicker when W is pressed
 	player.setTexture(player_texture);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
