@@ -18,10 +18,10 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 
 	// Asteroid variables
 	std::vector<Asteroids> asteroid_vector;
-	float asteroid_speed = 1;
+	long unsigned int max_asteroids = 10;
+	// float asteroid_speed = 1;
 	int asteroid_width = 128;
 	int asteroid_height = 128;
-	Asteroids asteroid(asteroid_width, asteroid_height);
 
 	float dt;
 	sf::Clock clock;
@@ -38,13 +38,27 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 				window.close();
 			}
 		}
+
 		window.clear();
+
+		Asteroids asteroid(asteroid_width, asteroid_height);
+		asteroid.spawnAsteroids(screen_width, screen_height, asteroid_width, asteroid_height);
+
+		if (asteroid_vector.size() < max_asteroids)
+		{
+			asteroid_vector.push_back(asteroid);
+		}
+
+		for (long unsigned int i = 0; i != asteroid_vector.size(); i++)
+		{
+			asteroid_vector[i].drawTo(window);
+		}
+
 		player.setPlayerTexture();
 		player.drawTo(window);
 		player.movePlayer(player_speed, dt);
 		player.rotatePlayer(player_rotation);
 		player.screenWrapping(screen_width, screen_height);
-		asteroid.spawnAsteroids(screen_width, screen_height, asteroid_width, asteroid_height);
 		window.display();
 	}
 }

@@ -45,5 +45,11 @@ void Asteroids::spawnAsteroids(int screen_width, int screen_height, int asteroid
 		spawn_point.y = screen_height - asteroid_width;
 	}
 
+	asteroid.setTexture(asteroid_texture_1);
 	asteroid.setPosition(spawn_point);
+}
+
+void Asteroids::drawTo(sf::RenderWindow& window)
+{
+	window.draw(asteroid);
 }

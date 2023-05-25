@@ -8,6 +8,7 @@ class Asteroids
 public:
 	Asteroids(int asteroid_width, int asteroid_height);
 	void spawnAsteroids(int screen_width, int screen_height, int asteroid_height, int asteroid_width);
+	void drawTo(sf::RenderWindow& window);
 
 private:
 	sf::Sprite asteroid;
