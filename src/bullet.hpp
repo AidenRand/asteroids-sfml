@@ -14,8 +14,9 @@ public:
 	void moveBullet();
 	void despawnBullet(bool& bullet_dead, int screen_width, int screen_height);
 
-private:
 	sf::RectangleShape bullet;
+
+private:
 	sf::Vector2f direction;
 };
 

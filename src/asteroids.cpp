@@ -1,4 +1,5 @@
 #include "asteroids.hpp"
+#include "bullet.hpp"
 
 Asteroids::Asteroids(int asteroid_width, int asteroid_height)
 {
@@ -106,5 +107,22 @@ void Asteroids::screenWrapping(int screen_width, int screen_height)
 	else if (asteroid.getPosition().y < 0)
 	{
 		asteroid.setPosition(asteroid.getPosition().x, screen_height);
+	}
+}
+
+void Asteroids::collision(bool& asteroid_dead, bool& bullet_dead, std::vector<Bullet> bullet_vector)
+{
+	for (unsigned int i = 0; i < bullet_vector.size(); i++)
+	{
+		auto bullet = bullet_vector[i].bullet;
+
+		// If current bullet collides with asteroid,
+		// set asteroid_dead and bullet_dead to true
+		if (bullet.getGlobalBounds().intersects(asteroid.getGlobalBounds()))
+		{
+			std::cout << "collision";
+			asteroid_dead = true;
+			bullet_dead = true;
+		}
 	}
 }

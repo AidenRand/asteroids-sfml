@@ -1,6 +1,7 @@
 #ifndef ASTEROIDS_HPP
 #define ASTEROIDS_HPP
 
+#include "bullet.hpp"
 #include <SFML/Graphics.hpp>
 
 class Asteroids
@@ -13,6 +14,7 @@ public:
 	void chooseAsteroidDirection(float& asteroid_speed);
 	void moveAsteroids();
 	void screenWrapping(int screen_width, int screen_height);
+	void collision(bool& asteroid_dead, bool& bullet_dead, std::vector<Bullet> bullet_vector);
 
 private:
 	sf::Sprite asteroid;
