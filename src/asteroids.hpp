@@ -6,7 +6,17 @@
 class Asteroids
 {
 public:
-	Asteroids(float asteroid_x, float asteroid_y, int asteroid_speed);
+	Asteroids(int asteroid_width, int asteroid_height);
+	void spawnAsteroids(int screen_width, int screen_height, int asteroid_height, int asteroid_width);
+
+private:
+	sf::Sprite asteroid;
+	sf::Texture asteroid_texture_1;
+	sf::Texture asteroid_texture_2;
+	sf::Texture asteroid_texture_3;
+
+	sf::Vector2f spawn_point;
+	int random_corner;
 };
 
 #endif

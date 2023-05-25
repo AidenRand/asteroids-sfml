@@ -7,6 +7,7 @@ int main()
 	int screen_height = 768;
 	sf::RenderWindow window(sf::VideoMode(screen_width, screen_height), "Asteroids");
 	window.setFramerateLimit(60);
+	std::srand(time(NULL));
 
 	gameFunction(window, screen_width, screen_height);
 	return 0;
