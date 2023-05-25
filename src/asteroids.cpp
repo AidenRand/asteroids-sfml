@@ -14,9 +14,27 @@ Asteroids::Asteroids(int asteroid_width, int asteroid_height)
 		std::cout << "ERROR: Cannot load asteroid_2 texture";
 	}
 
-	if (!asteroid_texture_1.loadFromFile("content/asteroid3.png"))
+	if (!asteroid_texture_3.loadFromFile("content/asteroid3.png"))
 	{
 		std::cout << "ERROR: Cannot load asteroid_3 texture";
+	}
+}
+
+void Asteroids::chooseTexture()
+{
+	random_texture = rand() % 3;
+
+	if (random_texture == 0)
+	{
+		asteroid.setTexture(asteroid_texture_1);
+	}
+	else if (random_texture == 1)
+	{
+		asteroid.setTexture(asteroid_texture_2);
+	}
+	else if (random_texture == 2)
+	{
+		asteroid.setTexture(asteroid_texture_3);
 	}
 }
 
@@ -56,6 +74,7 @@ void Asteroids::drawTo(sf::RenderWindow& window)
 
 void Asteroids::chooseAsteroidDirection(int& asteroid_speed)
 {
+	// Choose asteroid direction
 	random_angle = (rand() % 360) * M_PI;
 
 	direction.x = asteroid_speed * cos(random_angle);
