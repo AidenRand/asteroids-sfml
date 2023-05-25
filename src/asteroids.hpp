@@ -11,6 +11,7 @@ public:
 	void drawTo(sf::RenderWindow& window);
 	void chooseAsteroidDirection(int& asteroid_speed);
 	void moveAsteroids();
+	void screenWrapping(int screen_width, int screen_height);
 
 private:
 	sf::Sprite asteroid;

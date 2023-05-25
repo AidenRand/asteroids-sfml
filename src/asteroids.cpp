@@ -66,3 +66,25 @@ void Asteroids::moveAsteroids()
 {
 	asteroid.move(direction);
 }
+
+void Asteroids::screenWrapping(int screen_width, int screen_height)
+{
+	// If asteroid goes beyond window border, move to other side
+	if (asteroid.getPosition().x > screen_width)
+	{
+		asteroid.setPosition(0, asteroid.getPosition().y);
+	}
+	else if (asteroid.getPosition().x < 0)
+	{
+		asteroid.setPosition(screen_width, asteroid.getPosition().y);
+	}
+
+	if (asteroid.getPosition().y > screen_height)
+	{
+		asteroid.setPosition(asteroid.getPosition().x, 0);
+	}
+	else if (asteroid.getPosition().y < 0)
+	{
+		asteroid.setPosition(asteroid.getPosition().x, screen_height);
+	}
+}

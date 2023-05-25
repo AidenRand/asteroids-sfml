@@ -55,6 +55,7 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 		{
 			asteroid_vector[i].drawTo(window);
 			asteroid_vector[i].moveAsteroids();
+			asteroid_vector[i].screenWrapping(screen_width, screen_height);
 		}
 
 		player.setPlayerTexture();
