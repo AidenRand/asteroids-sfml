@@ -10,7 +10,7 @@ public:
 	void chooseTexture();
 	void spawnAsteroids(int screen_width, int screen_height, int asteroid_height, int asteroid_width);
 	void drawTo(sf::RenderWindow& window);
-	void chooseAsteroidDirection(int& asteroid_speed);
+	void chooseAsteroidDirection(float& asteroid_speed);
 	void moveAsteroids();
 	void screenWrapping(int screen_width, int screen_height);
 

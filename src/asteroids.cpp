@@ -73,10 +73,10 @@ void Asteroids::drawTo(sf::RenderWindow& window)
 	window.draw(asteroid);
 }
 
-void Asteroids::chooseAsteroidDirection(int& asteroid_speed)
+void Asteroids::chooseAsteroidDirection(float& asteroid_speed)
 {
 	// Choose asteroid direction
-	random_angle = (rand() % 360) * M_PI;
+	random_angle = (rand() % 360) * (M_PI / 180);
 
 	direction.x = asteroid_speed * cos(random_angle);
 	direction.y = asteroid_speed * sin(random_angle);

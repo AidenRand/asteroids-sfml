@@ -1,6 +1,8 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
+#include <SFML/Graphics.hpp>
+
 class Player
 {
 public:
@@ -11,11 +13,12 @@ public:
 	void rotatePlayer(float player_rotation);
 	void screenWrapping(int screen_width, int screen_height);
 
+	sf::Sprite player;
+
 private:
 	sf::Texture moving_player_texture;
 	sf::Texture player_texture;
 	int texture_number;
-	sf::Sprite player;
 
 	sf::Vector2f velocity;
 	sf::Vector2f direction;

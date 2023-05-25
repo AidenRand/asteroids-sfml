@@ -20,13 +20,15 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 	// Bullet variables
 	float bullet_width = 3;
 	float bullet_height = 3;
+	float bullet_speed = 5;
 	sf::Color white = sf::Color(200, 200, 200);
+	std::vector<Bullet> bullet_vector;
 	Bullet bullet(bullet_width, bullet_height, white);
 
 	// Asteroid variables
 	std::vector<Asteroids> asteroid_vector;
 	long unsigned int max_asteroids = 5;
-	int asteroid_speed = 1;
+	float asteroid_speed = 1;
 	int asteroid_width = 128;
 	int asteroid_height = 128;
 
@@ -43,6 +45,11 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 			if (event.type == sf::Event::Closed)
 			{
 				window.close();
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				bullet_vector.push_back(bullet);
 			}
 		}
 
@@ -66,6 +73,15 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 			asteroid_vector[i].drawTo(window);
 			asteroid_vector[i].moveAsteroids();
 			asteroid_vector[i].screenWrapping(screen_width, screen_height);
+		}
+
+		// Draw and move bullets
+		bullet.setPos(player);
+		bullet.moveBullet();
+		for (long unsigned int i = 0; i != bullet_vector.size(); i++)
+		{
+			bullet_vector[i].drawTo(window);
+			bullet_vector[i].fireBullet(bullet_speed, player);
 		}
 
 		player.setPlayerTexture();
