@@ -19,7 +19,7 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 	// Asteroid variables
 	std::vector<Asteroids> asteroid_vector;
 	long unsigned int max_asteroids = 10;
-	// float asteroid_speed = 1;
+	int asteroid_speed = 1;
 	int asteroid_width = 128;
 	int asteroid_height = 128;
 
@@ -41,8 +41,10 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 
 		window.clear();
 
+		// Create asteroids
 		Asteroids asteroid(asteroid_width, asteroid_height);
 		asteroid.spawnAsteroids(screen_width, screen_height, asteroid_width, asteroid_height);
+		asteroid.chooseAsteroidDirection(asteroid_speed);
 
 		if (asteroid_vector.size() < max_asteroids)
 		{
@@ -52,6 +54,7 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 		for (long unsigned int i = 0; i != asteroid_vector.size(); i++)
 		{
 			asteroid_vector[i].drawTo(window);
+			asteroid_vector[i].moveAsteroids();
 		}
 
 		player.setPlayerTexture();
