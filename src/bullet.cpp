@@ -21,10 +21,10 @@ void Bullet::drawTo(sf::RenderWindow& window)
 
 void Bullet::fireBullet(float& bullet_speed, Player& player)
 {
+	// Fire bullet in direction player is facing
 	auto player_angle = player.player.getRotation() * (M_PI / 180);
 	direction.x = bullet_speed * cos(player_angle);
 	direction.y = bullet_speed * sin(player_angle);
-	bullet.move(direction);
 }
 
 void Bullet::moveBullet()

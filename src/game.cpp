@@ -20,7 +20,7 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 	// Bullet variables
 	float bullet_width = 3;
 	float bullet_height = 3;
-	float bullet_speed = 5;
+	float bullet_speed = 10;
 	sf::Color white = sf::Color(200, 200, 200);
 	std::vector<Bullet> bullet_vector;
 	Bullet bullet(bullet_width, bullet_height, white);
@@ -77,11 +77,11 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 
 		// Draw and move bullets
 		bullet.setPos(player);
-		bullet.moveBullet();
+		bullet.fireBullet(bullet_speed, player);
 		for (long unsigned int i = 0; i != bullet_vector.size(); i++)
 		{
 			bullet_vector[i].drawTo(window);
-			bullet_vector[i].fireBullet(bullet_speed, player);
+			bullet_vector[i].moveBullet();
 		}
 
 		player.setPlayerTexture();
