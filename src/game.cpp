@@ -7,6 +7,7 @@
 
 void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 {
+	int level = 1;
 
 	// Player variables
 	int player_width = 32;
@@ -18,8 +19,8 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 	Player player(player_x, player_y, player_width, player_height);
 
 	// Bullet variables
-	float bullet_width = 3;
-	float bullet_height = 3;
+	float bullet_width = 2;
+	float bullet_height = 2;
 	float bullet_speed = 10;
 	bool bullet_dead = false;
 	bool bullet_firing = false;
@@ -72,13 +73,23 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 			asteroid_vector.push_back(asteroid);
 		}
 
+		if (asteroid_dead)
+		{
+			max_asteroids += 1;
+			asteroid_dead = false;
+		}
+
+		std::cout << max_asteroids << "\n";
+
 		// Draw and move asteroids
-		for (long unsigned int i = 0; i != asteroid_vector.size(); i++)
+		for (long unsigned int i = 0; i < asteroid_vector.size(); i++)
 		{
 			asteroid_vector[i].drawTo(window);
 			asteroid_vector[i].moveAsteroids(dt);
 			asteroid_vector[i].screenWrapping(screen_width, screen_height);
-			asteroid_vector[i].collision(asteroid_dead, bullet_dead, asteroid_scale, bullet_vector);
+			asteroid_vector[i].collision(asteroid_dead, bullet_dead, bullet_vector, level);
+			asteroid_vector[i].cutAsteroid(level, asteroid_scale);
+			level = 1;
 
 			// If bullet_dead is true despawn the bullet
 			if (bullet_dead)
@@ -119,8 +130,6 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 				bullet_dead = false;
 			}
 		}
-
-		std::cout << bullet_vector.size() << "\n";
 
 		player.setPlayerTexture();
 		player.drawTo(window);
