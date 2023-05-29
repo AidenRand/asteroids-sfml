@@ -14,7 +14,8 @@ public:
 	void chooseAsteroidDirection();
 	void moveAsteroids(float& dt);
 	void screenWrapping(int screen_width, int screen_height);
-	void collision(bool& asteroid_dead, bool& bullet_dead, float& asteroid_scale, std::vector<Bullet> bullet_vector);
+	void collision(bool& asteroid_dead, bool& bullet_dead, float& asteroid_scale, std::vector<Bullet> bullet_vector, bool& level_2, float& asteroid_posx, float& asteroid_posy);
+	void spawn_new(bool& level_2, float& asteroid_posx, float& asteroid_posy);
 
 private:
 	sf::Sprite asteroid;

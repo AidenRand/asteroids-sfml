@@ -111,7 +111,7 @@ void Asteroids::screenWrapping(int screen_width, int screen_height)
 	}
 }
 
-void Asteroids::collision(bool& asteroid_dead, bool& bullet_dead, float& asteroid_scale, std::vector<Bullet> bullet_vector)
+void Asteroids::collision(bool& asteroid_dead, bool& bullet_dead, float& asteroid_scale, std::vector<Bullet> bullet_vector, bool& level_2, float& asteroid_posx, float& asteroid_posy)
 {
 	for (unsigned int i = 0; i < bullet_vector.size(); i++)
 	{
@@ -121,10 +121,21 @@ void Asteroids::collision(bool& asteroid_dead, bool& bullet_dead, float& asteroi
 		// set asteroid_dead and bullet_dead to true
 		if (bullet.getGlobalBounds().intersects(asteroid.getGlobalBounds()))
 		{
-			std::cout << "collision";
 			asteroid_dead = true;
 			bullet_dead = true;
-			asteroid.scale(asteroid_scale, asteroid_scale);
+			asteroid.setScale(asteroid_scale, asteroid_scale);
+			level_2 = true;
+			asteroid_posx = asteroid.getPosition().x;
+			asteroid_posy = asteroid.getPosition().y;
 		}
 	}
+}
+
+void Asteroids::spawn_new(bool& level_2, float& asteroid_posx, float& asteroid_posy)
+{
+	if (level_2)
+	{
+		asteroid.setPosition(asteroid_posx, asteroid_posy);
+	}
+	std::cout << asteroid_posx << "\n";
 }
