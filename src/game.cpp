@@ -33,12 +33,15 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 	std::vector<Asteroids> asteroid_vector;
 	std::vector<Asteroids> asteroid_vector2;
 	long unsigned int max_asteroids = 5;
+	// long unsigned int max_asteroids2 = 0;
 	int asteroid_width = 128;
 	int asteroid_height = 128;
 	float asteroid_posx;
 	float asteroid_posy;
 	float asteroid_scale = 0.5;
 	bool asteroid_dead = false;
+	Asteroids asteroid(asteroid_width, asteroid_height);
+	Asteroids asteroid2(asteroid_width, asteroid_height);
 
 	float dt;
 	sf::Clock clock;
@@ -66,12 +69,11 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 		Bullet bullet(bullet_width, bullet_height, white);
 
 		// Create asteroids
-		Asteroids asteroid(asteroid_width, asteroid_height);
-		Asteroids asteroid2(asteroid_width, asteroid_height);
 		asteroid.spawnAsteroids(screen_width, screen_height, asteroid_width, asteroid_height);
 		asteroid.chooseAsteroidDirection();
 		asteroid.chooseTexture();
 
+		asteroid2.spawn_new(level_2, asteroid_posx, asteroid_posy);
 		asteroid2.chooseAsteroidDirection();
 		asteroid2.chooseTexture();
 
@@ -79,6 +81,13 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 		if (asteroid_vector.size() < max_asteroids)
 		{
 			asteroid_vector.push_back(asteroid);
+		}
+
+		if (level_2)
+		{
+			max_asteroids++;
+			asteroid_vector.push_back(asteroid2);
+			level_2 = false;
 		}
 
 		// Draw and move asteroids
@@ -96,28 +105,15 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 				bullet_dead = false;
 			}
 
-			if (asteroid_dead)
-			{
-				max_asteroids--;
-				asteroid_vector.erase(asteroid_vector.begin() + i);
-				asteroid_dead = false;
-			}
+			// if (asteroid_dead && level_2)
+			// {
+			// 	max_asteroids--;
+			// 	asteroid_vector.erase(asteroid_vector.begin() + i);
+			// 	asteroid_dead = false;
+			// }
 		}
 
-		if (level_2)
-		{
-			asteroid_vector2.push_back(asteroid2);
-			level_2 = false;
-		}
-
-		for (long unsigned int i = 0; i < asteroid_vector2.size(); i++)
-		{
-			asteroid_vector2[i].spawn_new(level_2, asteroid_posx, asteroid_posy);
-			asteroid_vector2[i].drawTo(window);
-			asteroid_vector2[i].moveAsteroids(dt);
-			asteroid_vector2[i].screenWrapping(screen_width, screen_height);
-			asteroid_vector2[i].collision(asteroid_dead, bullet_dead, asteroid_scale, bullet_vector, level_2, asteroid_posx, asteroid_posy);
-		}
+		std::cout << asteroid_vector.size() << "\n";
 
 		// If reload timer is zero, fire bullet
 		if (reload_timer == 0)
@@ -149,6 +145,13 @@ void gameFunction(sf::RenderWindow& window, int screen_width, int screen_height)
 				bullet_vector.erase(bullet_vector.begin() + i);
 				bullet_dead = false;
 			}
+
+			// if (asteroid_dead)
+			// {
+			// 	max_asteroids2--;
+			// 	asteroid_vector2.erase(asteroid_vector2.begin() + i);
+			// 	asteroid_dead = false;
+			// }
 		}
 
 		player.setPlayerTexture();

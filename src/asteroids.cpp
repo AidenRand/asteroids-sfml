@@ -136,6 +136,7 @@ void Asteroids::spawn_new(bool& level_2, float& asteroid_posx, float& asteroid_p
 	if (level_2)
 	{
 		asteroid.setPosition(asteroid_posx, asteroid_posy);
+		asteroid.setScale(0.5, 0.5);
 	}
 	std::cout << asteroid_posx << "\n";
 }
